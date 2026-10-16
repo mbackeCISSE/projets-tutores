@@ -1,0 +1,5 @@
+﻿<app-header />
+<div class="app-layout" [class.with-sidebar]="session.utilisateur()">
+  @if (session.utilisateur()) { <app-sidebar /> }
+  <main><router-outlet /></main>
+</div>

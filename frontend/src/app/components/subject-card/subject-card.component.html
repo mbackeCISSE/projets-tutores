@@ -1,0 +1,12 @@
+<article class="panel subject">
+  <div class="subject-top"><span class="subject-reference">Sujet n° {{ sujet().id }}</span><span class="badge" [class.accepted]="sujet().ouvert" [class.rejected]="!sujet().ouvert">{{ sujet().ouvert ? 'Ouvert aux candidatures' : 'Candidatures fermées' }}</span></div>
+  <h2>{{ sujet().titre }}</h2><p class="description">{{ sujet().description }}</p>
+  <div class="subject-teacher"><div><small>Encadrant</small><strong>{{ sujet().enseignantNom }}</strong></div></div>
+  <div class="subject-footer"><span class="places"><app-icon name="users" /><strong>{{ sujet().placesRestantes }}</strong> / {{ sujet().capaciteMax }} places disponibles</span>
+  @if (role() === 'ENSEIGNANT') { <div class="actions"><button class="secondary" [disabled]="busy()" (click)="modifier.emit(sujet())">Modifier</button><button class="danger" [disabled]="busy()" (click)="supprimer.emit(sujet())">Supprimer</button></div> }
+  @if (role() === 'ETUDIANT') {
+    @if (dejaCandidate()) { <span class="badge applied">Déjà candidaté</span> }
+    @else { <button [disabled]="busy() || !sujet().disponible" (click)="candidater.emit(sujet())">Candidater<app-icon name="arrow" /></button> }
+  }
+  </div>
+</article>

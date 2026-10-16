@@ -1,0 +1,9 @@
+<header class="topbar">
+  <a class="brand" [routerLink]="session.utilisateur() ? '/sujets' : '/connexion'"><span>Projets tutorés<small>Master 2 · GDIL</small></span></a>
+  <div class="header-right">
+    @if (session.utilisateur(); as u) {
+      <div class="identity"><div><strong>{{ u.prenom }} {{ u.nom }}</strong><small>{{ roles[u.role] }}</small></div></div>
+      <button class="secondary" (click)="deconnecter()">Se déconnecter</button>
+    }
+  </div>
+</header>

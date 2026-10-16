@@ -1,0 +1,15 @@
+@if (session.utilisateur(); as u) {
+  <aside class="sidebar">
+    <p class="nav-caption">ESPACE {{ roles[u.role] }}</p>
+    <nav aria-label="Navigation principale">
+      @if (u.role === 'ADMIN') {
+        <a routerLink="/etudiants" routerLinkActive="active" ariaCurrentWhenActive="page"><app-icon name="users" />Étudiants</a>
+        <a routerLink="/enseignants" routerLinkActive="active" ariaCurrentWhenActive="page"><app-icon name="book" />Enseignants</a>
+      }
+      <a routerLink="/sujets" routerLinkActive="active" ariaCurrentWhenActive="page"><app-icon name="folder" />{{ u.role === 'ENSEIGNANT' ? 'Mes sujets' : 'Sujets' }}</a>
+      @if (u.role !== 'ADMIN') { <a routerLink="/candidatures" routerLinkActive="active" ariaCurrentWhenActive="page"><app-icon name="file" />{{ u.role === 'ETUDIANT' ? 'Mes candidatures' : 'Candidatures' }}</a> }
+      @if (u.role === 'RESPONSABLE') { <a routerLink="/affectations" routerLinkActive="active" ariaCurrentWhenActive="page"><app-icon name="check" />Affectations</a> }
+    </nav>
+    <div class="sidebar-note"><strong>Projets tutorés</strong><p>Année universitaire<br>2026 – 2027</p></div>
+  </aside>
+}

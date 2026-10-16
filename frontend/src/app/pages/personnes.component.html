@@ -1,0 +1,23 @@
+<div class="page-heading"><div><p class="eyebrow">Administration</p><h1>{{ titre }}</h1><p class="page-description">Consultez les profils et mettez à jour leurs coordonnées.</p></div><button [disabled]="busy || loading" (click)="nouveau()">Ajouter {{ type === 'etudiants' ? 'un étudiant' : 'un enseignant' }}</button></div>
+    @if (error) { <p class="error" role="alert">{{ error }}</p><button class="secondary" [disabled]="loading || busy" (click)="load()">Réessayer le chargement</button> }
+    @if (success) { <p class="success" role="status">{{ success }}</p> }
+    @if (edition) {
+      <section class="panel"><h2>{{ id === null ? 'Ajouter' : 'Modifier' }} {{ type === 'etudiants' ? 'un étudiant' : 'un enseignant' }}</h2>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-grid"><div><label for="prenom">Prénom</label><input id="prenom" formControlName="prenom" autocomplete="given-name"></div>
+        <div><label for="nom">Nom</label><input id="nom" formControlName="nom" autocomplete="family-name"></div></div>
+        <label for="email">Adresse email</label><input id="email" formControlName="email" type="email" autocomplete="email">
+        @if (form.invalid && form.touched) { <p class="error">Renseignez le nom, le prénom et une adresse email valide.</p> }
+        <div class="actions"><button [disabled]="busy || loading || form.invalid">{{ busy ? 'Enregistrement…' : 'Enregistrer' }}</button><button type="button" class="secondary" [disabled]="busy" (click)="edition = false">Annuler</button></div>
+      </form></section>
+    }
+    <section class="panel">
+    @if (loading) { <p role="status">Chargement…</p> }
+    @else if (!error && personnes.length === 0) { <p>Aucun {{ type === 'etudiants' ? 'étudiant' : 'enseignant' }} enregistré.</p> }
+    @else if (personnes.length > 0) {
+      <div class="table-scroll"><table><thead><tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Actions</th></tr></thead><tbody>
+      @for (p of personnes; track p.id) { <tr><td>{{ p.nom }}</td><td>{{ p.prenom }}</td><td>{{ p.email }}</td><td><div class="actions">
+      <button class="secondary" [disabled]="busy" (click)="modifier(p)">Modifier<span class="sr-only"> {{ p.prenom }} {{ p.nom }}</span></button>
+      <button class="danger" [disabled]="busy" (click)="supprimer(p)">Supprimer<span class="sr-only"> {{ p.prenom }} {{ p.nom }}</span></button></div></td></tr> }
+      </tbody></table></div>
+    }</section>

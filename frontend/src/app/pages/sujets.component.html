@@ -1,0 +1,33 @@
+<div class="page-heading"><div><p class="eyebrow">Projets tutorés</p><h1>{{ role === 'ENSEIGNANT' ? 'Mes sujets' : role === 'ETUDIANT' ? 'Sujets disponibles' : 'Sujets' }}</h1><p class="page-description">{{ role === 'ENSEIGNANT' ? 'Retrouvez et gérez les projets que vous proposez aux étudiants.' : role === 'ETUDIANT' ? 'Consultez les propositions et candidatez au projet qui vous intéresse.' : 'Consultez les projets proposés et leurs places disponibles.' }}</p></div>
+<div class="actions"><button class="secondary" [disabled]="loading || busy" (click)="load()">Actualiser</button>
+@if (role === 'ENSEIGNANT') { <button [disabled]="busy || loading" (click)="nouveau()">Ajouter un sujet</button> }</div></div>
+@if (error) { <p class="error" role="alert">{{ error }}</p> }
+@if (success) { <p class="success" role="status">{{ success }}</p> }
+@if (edition && role === 'ENSEIGNANT') {
+  <section class="panel"><h2>{{ id === null ? 'Ajouter un sujet' : 'Modifier le sujet' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="save()">
+  <label for="titre">Titre</label><input id="titre" formControlName="titre">
+  <label for="description">Description</label><textarea id="description" formControlName="description" rows="5"></textarea>
+  <label for="capacite">Capacité maximale</label><input id="capacite" type="number" min="1" step="1" formControlName="capaciteMax">
+  <label class="checkbox"><input type="checkbox" formControlName="ouvert">Ouvert aux candidatures</label>
+  @if (form.invalid && form.touched) { <p class="error">Renseignez le titre, la description et une capacité entière supérieure ou égale à 1.</p> }
+  <div class="actions"><button [disabled]="busy || loading || form.invalid">{{ busy ? 'Enregistrement…' : 'Enregistrer' }}</button><button type="button" class="secondary" [disabled]="busy" (click)="edition = false">Annuler</button></div>
+  </form></section>
+}
+@if (sujetChoisi && role === 'ETUDIANT') {
+  <section class="panel"><h2>Candidater : {{ sujetChoisi.titre }}</h2>
+  <form [formGroup]="candidatureForm" (ngSubmit)="candidater()">
+    <label for="motivation">Votre motivation</label><textarea id="motivation" formControlName="motivation" rows="5"></textarea>
+    @if (candidatureForm.invalid && candidatureForm.touched) { <p class="error">Veuillez saisir votre motivation.</p> }
+    <div class="actions"><button [disabled]="busy || loading || candidatureForm.invalid">{{ busy ? 'Envoi…' : 'Envoyer ma candidature' }}</button><button type="button" class="secondary" [disabled]="busy" (click)="sujetChoisi = null">Annuler</button></div>
+  </form></section>
+}
+@if (loading) { <section class="panel" role="status">Chargement des sujets…</section> }
+@else if (!error && sujets.length === 0) { <section class="panel">Aucun sujet {{ role === 'ETUDIANT' ? 'disponible' : 'enregistré' }}.</section> }
+@else if (!loading && !error) {
+  <div class="subject-list">
+  @for (sujet of sujets; track sujet.id) {
+    <app-subject-card [sujet]="sujet" [role]="role" [busy]="busy" [dejaCandidate]="dejaCandidate(sujet.id)" (modifier)="modifier($event)" (supprimer)="supprimer($event)" (candidater)="choisir($event)" />
+  }
+  </div>
+}

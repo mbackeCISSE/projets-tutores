@@ -1,0 +1,15 @@
+<section class="panel login-panel">
+  <h1>Connexion</h1>
+  <p class="login-description">Connectez-vous pour accéder à la gestion des projets tutorés.</p>
+  @if (error) { <p class="error" role="alert">{{ error }}</p> }
+  <form [formGroup]="form" (ngSubmit)="connecter()">
+    <label for="email">Adresse email</label>
+    <input id="email" type="email" formControlName="email" autocomplete="username" placeholder="prenom.nom@gdil.example" [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid" aria-describedby="email-error">
+    @if (form.controls.email.touched && form.controls.email.invalid) { <p id="email-error" class="field-error">Saisissez une adresse email valide.</p> }
+    <label for="motDePasse">Mot de passe</label>
+    <input id="motDePasse" type="password" formControlName="motDePasse" autocomplete="current-password" [attr.aria-invalid]="form.controls.motDePasse.touched && form.controls.motDePasse.invalid" aria-describedby="password-error">
+    @if (form.controls.motDePasse.touched && form.controls.motDePasse.invalid) { <p id="password-error" class="field-error">Le mot de passe est obligatoire.</p> }
+    <button class="login-submit" type="submit" [disabled]="busy">{{ busy ? 'Connexion en cours…' : 'Se connecter' }}</button>
+  </form>
+  <p class="login-campus">Université Gaston Berger de Saint-Louis · Master 2 GDIL</p>
+</section>

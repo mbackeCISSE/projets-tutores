@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Frontend et configuration locale
+node_modules/
+dist/
+.angular/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+
+# Conserver les fichiers IDE deja suivis dans le depot frontend importe.
+!frontend/.vscode/
