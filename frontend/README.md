@@ -13,7 +13,7 @@ Prérequis : Node.js 22 et npm.
 
 Ouvrir http://localhost:4200.
 
-Le [backend Spring Boot](https://github.com/mbackeCISSE/backend) doit être démarré sur http://localhost:8080 avec sa base MySQL et le profil demo. Les instructions sont dans son README.
+Le [backend Spring Boot](../backend/README.md) doit être démarré sur http://localhost:8080 avec sa base MySQL et le profil demo. Les instructions sont dans son README.
 
 Sous PowerShell, utiliser npm.cmd si la commande npm est bloquée.
 

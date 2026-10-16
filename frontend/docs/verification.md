@@ -2,7 +2,7 @@
 
 ## Sources et configuration
 
-Backend cloné depuis https://github.com/mbackeCISSE/backend au commit fdc826af1ef732fb54ab0c5f18ceacca6f40aa30, dans le dossier voisin ../backend.
+Backend cloné depuis https://github.com/mbackeCISSE/projets-tutores au commit fdc826af1ef732fb54ab0c5f18ceacca6f40aa30, dans le dossier voisin ../backend.
 Le code source du backend n’a pas été modifié.
 
 Le dépôt utilise Spring Boot 4.1.1, Java 21 et MySQL, contrairement au choix PostgreSQL de la demande initiale.

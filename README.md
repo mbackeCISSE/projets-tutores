@@ -122,7 +122,7 @@ Les contrôles du frontend améliorent l’usage de l’application. Les contrô
 ### 4.2. Arborescence
 
 ```text
-backend/  # racine du dépôt GitHub mbackeCISSE/backend
+projets-tutores/
 ├── README.md
 ├── backend/
 │   ├── pom.xml
@@ -161,7 +161,7 @@ backend/  # racine du dépôt GitHub mbackeCISSE/backend
 └── capture/
 ```
 
-Les dossiers frontend et backend sont suivis ensemble dans un seul dépôt Git. Le nom historique du dépôt GitHub reste backend, mais il contient désormais les deux applications, ce README et les captures. Le frontend est intégré comme des fichiers ordinaires, sans sous-module ni dépôt Git imbriqué.
+Les dossiers frontend et backend sont suivis ensemble dans un seul dépôt Git. Le dépôt GitHub se nomme projets-tutores et contient les deux applications, ce README et les captures. Le frontend est intégré comme des fichiers ordinaires, sans sous-module ni dépôt Git imbriqué.
 
 ## 5. Modèle de données
 
@@ -369,7 +369,7 @@ Les commandes suivantes sont prévues pour PowerShell et partent du dossier raci
 Le Maven Wrapper évite d’installer Maven séparément. Pour récupérer les deux applications sur un autre poste :
 
 ```powershell
-git clone https://github.com/mbackeCISSE/backend.git projets-tutores
+git clone https://github.com/mbackeCISSE/projets-tutores.git projets-tutores
 cd projets-tutores
 ```
 
